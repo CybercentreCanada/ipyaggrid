@@ -15,18 +15,14 @@ stages:
     jobs:
       - job: BuildPublishPythonArtifact
         displayName: Build, package and publish python artifacts.
-        strategy:
-          matrix:
-            Python38:
-              python.version: '3.8'
         steps:
           - task: NodeTool@0
             inputs:
               versionSpec: '16.x'
           - task: UsePythonVersion@0
             inputs:
-              versionSpec: '$(python.version)'
-            displayName: 'Use Python $(python.version)'
+              versionSpec: '3.8'
+            displayName: 'Use Python 3.8'
           - script: |
               pip install wheel "jupyterlab<4"
             displayName: 'Install dependencies'
@@ -52,6 +48,10 @@ stages:
       - job: PublishArtifactToFeedArtifact
         dependsOn: BuildPublishPythonArtifact
         steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.8'
+            displayName: 'Use Python 3.8'
           - task: DownloadBuildArtifacts@0
             inputs:
               buildType: 'current'
