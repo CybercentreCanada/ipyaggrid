@@ -30,8 +30,8 @@ class AgGridModel extends widgets.DOMWidgetModel {
             ...super.defaults(),
             ...{                _model_name: 'AgGridModel',
                 _view_name: 'AgGridView',
-                _model_module: 'ipyaggrid',
-                _view_module: 'ipyaggrid',
+                _model_module: 'cccs-ipyaggrid',
+                _view_module: 'cccs-ipyaggrid',
                 _model_module_version: semver_range,
                 _view_module_version: semver_range,
 
@@ -132,7 +132,7 @@ class AgGridView extends widgets.DOMWidgetView {
                 sheet
             );
         }
-        console.log('end ipyaggrid render');
+        console.log('end cccs-ipyaggrid render');
     }
 }
 
