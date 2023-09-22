@@ -17,7 +17,7 @@ from distutils.util import convert_path
 from setuptools import setup, find_packages
 
 packages = find_packages()
-module = "cccs-ipyaggrid"
+module = "ipyaggrid"
 
 
 meta_ns = {}
