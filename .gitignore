@@ -10,8 +10,8 @@
 **/node_modules
 
 */static/
-ipyaggrid/nbextension/
-ipyaggrid/labextension/
+cccs_ipyaggrid/nbextension/
+cccs_ipyaggrid/labextension/
 js/dist/
 
 build/

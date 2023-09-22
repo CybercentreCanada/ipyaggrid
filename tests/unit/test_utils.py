@@ -4,7 +4,7 @@ import pytest
 import pandas as pd
 from unittest.mock import Mock
 
-from ipyaggrid.util import Util
+from cccs_ipyaggrid.util import Util
 
 @pytest.mark.parametrize("data,expected", [
     (42, '42'),
