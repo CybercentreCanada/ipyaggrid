@@ -62,19 +62,19 @@ stages:
               pip install twine
               python -m twine upload --skip-existing -r analytical-platform --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/*
             displayName: 'Publish artifact to analytical-platform feed.'
-      - job: PublishArtifactToPypi
-        dependsOn: BuildPublishPythonArtifact
-        steps:
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: 'current'
-              downloadType: 'specific'
-              downloadPath: '$(Pipeline.Workspace)'
-            displayName: 'Download build artifact.'
-          - task: TwineAuthenticate@1
-            inputs:
-              pythonUploadServiceConnection: cccs-pypi
-          - script: |
-              pip install twine
-              python -m twine upload --skip-existing -r "cccs-pypi" --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/*
-            displayName: 'Publish artifact to PyPI.'
+      # - job: PublishArtifactToPypi
+      #   dependsOn: BuildPublishPythonArtifact
+      #   steps:
+      #     - task: DownloadBuildArtifacts@0
+      #       inputs:
+      #         buildType: 'current'
+      #         downloadType: 'specific'
+      #         downloadPath: '$(Pipeline.Workspace)'
+      #       displayName: 'Download build artifact.'
+      #     - task: TwineAuthenticate@1
+      #       inputs:
+      #         pythonUploadServiceConnection: cccs-pypi
+      #     - script: |
+      #         pip install twine
+      #         python -m twine upload --skip-existing -r "cccs-pypi" --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/*
+      #       displayName: 'Publish artifact to PyPI.'
