@@ -1,8 +1,8 @@
 
 # js
-recursive-include cccs_ipyaggrid/nbextension *.*
-recursive-include cccs_ipyaggrid/labextension *.*
-recursive-include cccs_ipyaggrid/js *.js
+recursive-include ipyaggrid/nbextension *.*
+recursive-include ipyaggrid/labextension *.*
+recursive-include ipyaggrid/js *.js
 
 # Misc
 include requirements.txt

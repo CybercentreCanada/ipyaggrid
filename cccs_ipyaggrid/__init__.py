@@ -13,9 +13,9 @@ def _jupyter_nbextension_paths():
         # path relative to module directory - here: ipyaggrid
         'src': 'nbextension',
         # directory in the `nbextension/` namespace
-        'dest': 'cccs_ipyaggrid',
+        'dest': 'ipyaggrid',
         # path in the `nbextension/` namespace
-        'require': 'cccs_ipyaggrid/extension'
+        'require': 'ipyaggrid/extension'
     }]
 
 def _jupyter_labextension_paths():
@@ -32,5 +32,5 @@ def _jupyter_labextension_paths():
     """
     return [{
         'src': 'labextension',
-        'dest': 'cccs_ipyaggrid',
+        'dest': 'ipyaggrid',
     }]

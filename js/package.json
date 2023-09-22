@@ -23,7 +23,7 @@
     ],
     "jupyterlab": {
         "extension": "src/labplugin",
-        "outputDir": "../cccs_ipyaggrid/labextension",
+        "outputDir": "../ipyaggrid/labextension",
         "sharedPackages": {
             "@jupyter-widgets/base": {
                 "bundled": false,
@@ -32,7 +32,7 @@
         }
     },
     "scripts": {
-        "clean": "rimraf dist/ && rimraf ../cccs_ipyaggrid/nbextension/ && rimraf ../cccs_ipyaggrid/labextension/",
+        "clean": "rimraf dist/ && rimraf ../ipyaggrid/nbextension/ && rimraf ../ipyaggrid/labextension/",
         "cleanall": "npm run clean && rimraf node_modules/",
         "prepare": "webpack --mode production",
         "watch": "watch 'webpack --mode development' src/",

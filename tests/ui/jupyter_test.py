@@ -2,10 +2,10 @@ import playwright.sync_api
 from IPython.display import display
 
 
-
 def test_widget_aggrid(ipywidgets_runner, page_session: playwright.sync_api.Page, assert_solara_snapshot):
     def kernel_code():
-        import cccs_ipyaggrid
+        import ipyaggrid
+
         cars = [
             {"carName": "Chevelle", "origin": "US", "make": "Chevrolet", "price": 30415},
             {"carName": "Skylark 320", "origin": "US", "make": "Buick", "price": 21042},
@@ -16,9 +16,10 @@ def test_widget_aggrid(ipywidgets_runner, page_session: playwright.sync_api.Page
         grid_options = {
             "columnDefs": column_defs,
         }
-        g = cccs_ipyaggrid.Grid(grid_data=cars, grid_options=grid_options)
+        g = ipyaggrid.Grid(grid_data=cars, grid_options=grid_options)
 
         display(g)
+
     ipywidgets_runner(kernel_code)
     cell = page_session.locator(".ag-root-wrapper >> text=Chevrolet")
     cell.click()

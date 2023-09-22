@@ -9,7 +9,7 @@ if (window.require) {
     window.require.config({
         map: {
             '*': {
-                cccs_ipyaggrid: 'nbextensions/cccs_ipyaggrid/index',
+                ipyaggrid: 'nbextensions/ipyaggrid/index',
             },
         },
     });
