@@ -18,9 +18,9 @@ def _get_version(version_info):
 
 # meta data
 
-__name__ = 'ipyaggrid'
+__name__ = 'cccs-ipyaggrid'
 name_url = __name__.replace('_', '-')
-__version__ = '0.5.1'
+__version__ = '0.5.2'
 __version_js__ = __version__
 
 
