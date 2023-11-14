@@ -198,7 +198,7 @@ const buildAgGrid = (view, gridData, gridOptions_str, div, sheet, dropdownMulti 
     // Display menu
     Utils.setupInputs(view, menu, sheet, gridOptions, dropdownMulti);
     Utils.setupButtons(view, menu, sheet, gridOptions, helpers);
-    Utils.menuBuiler(view, menu, sheet);
+    Utils.menuBuiler(view, menu, sheet, bodyThemeDark);
 
     // Hide grid if necessary
     if (view.model.get('hide_grid')) {

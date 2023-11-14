@@ -563,7 +563,7 @@ class Util:
         # Manage buttons individual actions and CSS
         for elem in menu_in['inputs']:
             options = {}
-            if elem['name']=='Quick Filter' or elem['name']=='Dropdown Menu':
+            if elem['name']=='Dropdown Menu':
                 options['width'] = '150px'
             name = elem['name'].lower().replace(
                 ' ', '-')+'-'+str(grid._id)

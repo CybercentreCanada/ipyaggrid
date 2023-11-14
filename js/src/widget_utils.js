@@ -205,15 +205,21 @@ const setupDropdownMenu = (view, menu, sheet, dropdownMulti, input) => {
  * @param {Object} input
  */
 const setupQuickFilter = (view, menu, sheet, input) => {
+    const divFilter = document.createElement('div');
+    divFilter.style = 'margin-left:0px';
+    const spanFilter = document.createElement('span');
+    spanFilter.innerHTML = 'Filter: ';
     const quickFilter = document.createElement('input');
     quickFilter.id = `quick-filter-${view._id}`;
     quickFilter.type = 'text';
-    quickFilter.placeholder = 'Filter...';
+    quickFilter.placeholder = '';
     quickFilter.className = `widget-text flex-child-${input.name
         .toLowerCase()
         .replace(/\s/g, '-')}-${view._id}`;
+    divFilter.appendChild(spanFilter);
+    divFilter.appendChild(quickFilter);
 
-    menu.inputDivs.push(quickFilter);
+    menu.inputDivs.push(divFilter);
 
     const onQuickfilterTextBoxChanged = () => {
         const options = view.gridOptions;
@@ -310,10 +316,15 @@ function editMode(view, gridOptions, editable) {
  * @param {WidgetView} view
  * @param {Object} menu
  * @param {StyleSheet} sheet
+ * @param {Boolean} bodyThemeDark
  */
-const menuBuiler = (view, menu, sheet) => {
+const menuBuiler = (view, menu, sheet, bodyThemeDark) => {
     const inputDiv = document.createElement('div');
     inputDiv.className = `flex-input-div-${view._id}`;
+    inputDiv.style = 'width:100%';
+    if (bodyThemeDark) {
+        inputDiv.style += '; color-scheme: dark !important';
+    }
     sheet.insertRule(menu.input_div_css, 0);
     const buttonDiv = document.createElement('div');
     buttonDiv.className = `flex-button-div-${view._id}`;
