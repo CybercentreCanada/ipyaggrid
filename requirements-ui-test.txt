@@ -307,7 +307,7 @@ pygments==2.15.1
     #   nbconvert
     #   rich
     #   solara
-pymdown-extensions==10.0.1
+pymdown-extensions==10.16.1
     # via solara
 pyrsistent==0.19.3
     # via jsonschema
