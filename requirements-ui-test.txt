@@ -176,7 +176,7 @@ jupyter-ydoc==0.2.4
     # via
     #   jupyter-server-ydoc
     #   jupyterlab
-jupyterlab==3.6.3
+jupyterlab==4.4.8
     # via
     #   ipyaggrid (setup.py)
     #   solara
