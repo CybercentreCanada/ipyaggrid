@@ -14,67 +14,78 @@ stages:
   - stage: Build_and_Publish_Python_Artifact
     displayName: Build, package and publish python artifacts.
     jobs:
-      - job: BuildPublishPythonArtifact
-        displayName: Build, package and publish python artifacts.
+      - job: BuildPythonArtifact
+        displayName: Build and package python artifacts.
+        strategy:
+          matrix:
+            Python:
+              python.version: '3.10'
+
         steps:
           - task: NodeTool@0
             inputs:
               versionSpec: '20.x'
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: '3.10'
-            displayName: 'Use Python 3.10'
+
           - script: |
               pip install wheel "jupyterlab==4.3.0"
             displayName: 'Install dependencies'
+
           - script: |
               cd js
               npm ci
               npm run build:labextension
               npm pack
             displayName: 'Package js'
+
           - script: |
               python setup.py sdist bdist_wheel --universal
             displayName: 'Package'
+
           - task: CopyFiles@2
             inputs:
+              contents: 'dist/**'
               targetFolder: $(Build.ArtifactStagingDirectory)
             displayName: 'Stage build artifact to publish'
+
           - task: PublishBuildArtifacts@1
-            displayName: Publish build artifacts
             inputs:
               pathtoPublish: '$(Build.ArtifactStagingDirectory)/dist'
               artifactName: 'dist'
               publishLocation: 'Container'
-      - job: PublishArtifactToFeedArtifact
-        dependsOn: BuildPublishPythonArtifact
+            displayName: 'Publish build artifacts'
+
+      - job: PublishArtifactToAPAFeed
+        displayName: Publish artifact to APA feed
+        dependsOn: BuildPythonArtifact
         steps:
+          - script: |
+              rm -rf $(Pipeline.Workspace)/dist/*
+            displayName: 'Clean dist directory before download'
+
           - task: DownloadBuildArtifacts@0
             inputs:
               buildType: 'current'
               downloadType: 'specific'
               downloadPath: '$(Pipeline.Workspace)'
-            displayName: 'Download build artifact.'
+            displayName: 'Download build artifact'
+
           - task: TwineAuthenticate@1
             inputs:
               artifactFeed: Analytical Platform/analytical-platform
+            displayName: 'Twine Authenticate'
+
           - script: |
+              virtualenv -p python$(python.version) env
+              source env/bin/activate
               pip install twine
-              python -m twine upload --skip-existing -r analytical-platform --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/*
-            displayName: 'Publish artifact to analytical-platform feed.'
-      - job: PublishArtifactToPypi
-        dependsOn: BuildPublishPythonArtifact
-        steps:
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: 'current'
-              downloadType: 'specific'
-              downloadPath: '$(Pipeline.Workspace)'
-            displayName: 'Download build artifact.'
-          - task: TwineAuthenticate@1
-            inputs:
-              pythonUploadServiceConnection: cccs-pypi
-          - script: |
-              pip install twine
-              python -m twine upload --skip-existing -r "cccs-pypi" --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/*
-            displayName: 'Publish artifact to PyPI.'
+
+              set -o pipefail
+              if ! python -m twine upload -r analytical-platform --config-file $(PYPIRC_PATH) $(Pipeline.Workspace)/dist/* --verbose 2>&1 | tee twine.log; then
+                if grep -q "409" twine.log; then
+                  echo "Package already exists (409 Conflict) — skipping"
+                  exit 0
+                else
+                  exit 1
+                fi
+              fi
+            displayName: 'Publish artifact to analytical-platform feed'
