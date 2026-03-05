@@ -75,7 +75,7 @@ fqdn==1.5.1
     # via jsonschema
 greenlet==2.0.1
     # via playwright
-h11==0.14.0
+h11==0.16.0
     # via uvicorn
 humanize==4.6.0
     # via solara
