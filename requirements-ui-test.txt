@@ -344,7 +344,7 @@ pyzmq==25.1.0
     #   notebook
 reacton==1.7.1
     # via solara
-requests==2.31.0
+requests==2.32.4
     # via
     #   jupyterlab-server
     #   pytest-base-url
