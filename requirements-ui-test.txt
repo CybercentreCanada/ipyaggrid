@@ -188,7 +188,7 @@ jupyterlab-server==2.23.0
     #   voila
 jupyterlab-widgets==3.0.7
     # via ipywidgets
-markdown==3.4.3
+markdown==3.8.1
     # via
     #   pymdown-extensions
     #   solara
